@@ -89,6 +89,7 @@ d. Em seguida, adicione a seguinte linha.
 ```
 
 oh-my-posh init pwsh | Invoke-Expression
+Clear-Host
 
 ```
 
