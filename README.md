@@ -26,6 +26,7 @@ Após executar o comando e finalizar a instalação feche e abra novamente o ter
 
 ## Instalação da Fonte
 - [Documentação](https://ohmyposh.dev/docs/installation/fonts)
+- [Modelo de Fonte](https://www.nerdfonts.com/)
 
 Esteja atento na hora de realizar a instalalação da fonte, por via das dúvidas utilize a HACK. 
 Para instalação da fonte executar o comando abaixo:
@@ -129,7 +130,7 @@ oh-my-posh init pwsh --config 'C:\Users\Usuario\AppData\Local\Programs\oh-my-pos
 
 > Verifica se a localização dos temas realmente estão no endereço neste exemplo, se estiver, só executar o comando acima.
 
-Executar o comando abaixo para listar todos os temas disponíveis.
+Executar o comando abaixo para listar todos os temas disponíveis ou você pode consultar no site: https://ohmyposh.dev/docs/themes
 
 ```
 
