@@ -1,142 +1,265 @@
-# Terminal Personalizado
+# Terminal Personalizado no Windows
 
-Com o "Oh My Posh" é possível deixar personalizado o seu prompt de comando, também conhecido como terminal. Abaixo um exemplo:
+Guia rápido para configurar um terminal personalizado no Windows utilizando **Windows Terminal + PowerShell + Oh My Posh + Nerd Font**.
 
-![image](https://github.com/user-attachments/assets/79b8ab65-ce0b-4aa4-9f0e-1c93ffb9c5cc)
+---
 
-Documentação:
-- [Windows](https://ohmyposh.dev/docs/installation/windows)
-- [Linux](https://ohmyposh.dev/docs/installation/linux)
-- [MacOS](https://ohmyposh.dev/docs/installation/macos)
+## 📑 Glossário
 
-Para ter segurança de que todos os ícones sejam apresentados é recomendável utilizar a Nerd Font na hora de escolher o modelo da fonte.
-Seguiremos a instalação para o Windows utilizando o seu gerenciador de pacotes, Winget.
+| Etapa                                                                       | Ação                                        |
+| --------------------------------------------------------------------------- | ------------------------------------------- |
+| [1. Instalar o Oh My Posh](#1-instalar-o-oh-my-posh)                        | Instalação pelo Winget                      |
+| [2. Instalar uma Nerd Font](#2-instalar-uma-nerd-font)                      | Instalação da fonte Meslo                   |
+| [3. Configurar a fonte](#3-configurar-a-fonte-no-windows-terminal)          | Selecionar a fonte no Windows Terminal      |
+| [4. Criar o perfil do PowerShell](#4-criar-o-perfil-do-powershell)          | Criar o arquivo `$PROFILE`                  |
+| [5. Abrir o perfil](#5-abrir-o-perfil)                                      | Editar o `$PROFILE`                         |
+| [6. Ativar o Oh My Posh](#6-ativar-o-oh-my-posh)                            | Carregar o Oh My Posh automaticamente       |
+| [7. Visualizar os temas](#7-visualizar-os-temas-disponíveis)                | Listar os temas disponíveis                 |
+| [8. Configurar um tema](#8-configurar-um-tema)                              | Escolher o tema do terminal                 |
+| [9. Atualizar o Oh My Posh](#9-atualizar-o-oh-my-posh)                      | Atualizar pelo Winget                       |
+| [10. Resolver problemas com o perfil](#10-problemas-com-execução-do-perfil) | Corrigir bloqueio de execução do PowerShell |
+| [11. Comandos úteis](#11-comandos-úteis)                                    | Consulta rápida de comandos                 |
+| [12. Documentação](#12-documentação)                                        | Links oficiais                              |
 
-# Instalação
+---
 
-1. Para realizar a instalação do Oh My Posh no Windows 10/11 através do Winget basta utilizar o comando abaixo:
+## 1. Instalar o Oh My Posh
 
+Abra o **PowerShell** no Windows Terminal e execute:
+
+```powershell
+winget install JanDeDobbeleer.OhMyPosh --source winget
 ```
 
-winget install JanDeDobbeleer.OhMyPosh -s winget
+Após a instalação, **feche e abra novamente o terminal**.
 
+Confirme a instalação:
+
+```powershell
+oh-my-posh version
 ```
 
-Após executar o comando e finalizar a instalação feche e abra novamente o terminal. 
+[⬆ Voltar ao Glossário](#-glossário)
 
-## Instalação da Fonte
-- [Documentação](https://ohmyposh.dev/docs/installation/fonts)
-- [Modelo de Fonte](https://www.nerdfonts.com/)
+---
 
-Esteja atento na hora de realizar a instalalação da fonte, por via das dúvidas utilize a HACK. 
-Para instalação da fonte executar o comando abaixo:
+## 2. Instalar uma Nerd Font
 
+Os temas do Oh My Posh utilizam ícones especiais. Para exibi-los corretamente, instale uma **Nerd Font**.
 
+A fonte recomendada é a **Meslo**:
+
+```powershell
+oh-my-posh font install meslo
 ```
 
-oh-my-posh font install --user
+Para visualizar outras fontes disponíveis:
 
+```powershell
+oh-my-posh font list
 ```
 
-![image](https://github.com/user-attachments/assets/7f33f261-12ce-4fee-bc7b-61162e45a39c)
+[⬆ Voltar ao Glossário](#-glossário)
 
-![image](https://github.com/user-attachments/assets/7c7329bf-a4c6-4dea-997a-bf30ef129446)
+---
 
+## 3. Configurar a fonte no Windows Terminal
 
-_Ao executar o terminal como administrar a font será instalada no sistema, caso contrário, será instalada apenas no usuário local._
+Abra:
 
-## Configuração da Fonte
+**Windows Terminal → Configurações → Perfis → Padrões → Aparência**
 
-Windows 10: 
-- Clicar com botão direito do mouse na barra de título
-- Clicar com o botão esquerdo na opção ``Propriedades``
-- Navegar até a guia ``Fonte``
-- Escolher a fonte ``Hack Nerd Font Mono``
+Em **Tipo de fonte**, selecione:
 
-Windows 11: 
-- Clicar com botão direito do mouse na barra de título
-- Clicar com o botão esquerdo na opção ``Configurações``
-- Navegar até o menu ``Windows PowerShell``
-- Clicar em ``Aparência``
-- Então, em Tipo de fonte escolher a ``Hack Nerd Font``
-
-## Alteração do Prompt do Shell
-
-[Documentação](https://ohmyposh.dev/docs/installation/prompt)
-
-a. Execute o comando abaixo para confirmar qual o Shell está em uso.
-
+```text
+MesloLGM Nerd Font
 ```
 
-oh-my-posh get shell
+Salve as alterações.
 
+[⬆ Voltar ao Glossário](#-glossário)
+
+---
+
+## 4. Criar o perfil do PowerShell
+
+Verifique se o arquivo de perfil existe:
+
+```powershell
+Test-Path $PROFILE
 ```
 
-b. Edite seu script de perfil do PowerShell. Por exemplo, usando o bloco de notas, para isso, basta acessar o terminal e digitar o comando ``notas:$PROFILE``.
+Se retornar:
 
-c. Quando der erro informando que o perfil não existe certifique de clicar em ``Sim``, que deseja criá-lo. Se for o caso, tente o comando abaixo:
-
+```text
+False
 ```
 
+crie o arquivo:
+
+```powershell
 New-Item -Path $PROFILE -Type File -Force
-
 ```
 
-> Nesse cenário, também pode ser que o PowerShell bloqueie a execução de scripts locais. Para resolver isso, defina o PowerShell para exigir apenas que scripts remotos sejam assinados usando o , ou assinar o perfil. ``Set-ExecutionPolicy RemoteSigned``
+[⬆ Voltar ao Glossário](#-glossário)
 
-d. Em seguida, adicione a seguinte linha.
+---
 
-```
+## 5. Abrir o perfil
 
-oh-my-posh init pwsh | Invoke-Expression
-Clear-Host
+Execute:
 
-```
-
-e. Depois de adicionado o texo ao arquivo, recarregue seu perfil para que as alterações sejam aplicadas. Para isso, abra o PowerShell e execute o comando abaixo:
-
-```
-
-. $PROFILE
-
-```
-
-## Configuração do tema
-
-Executar no PowerShwll os comandos abaixo:
-
-```
-
-Install-Module posh-git -Scope CurrentUser
-Install-Module oh-my-posh -Scope CurrentUser
-
-```
-
-Para editar o seu $PROFILE execute o comando abaixo no PowerShell:
-
-```
-
-if (!(Test-Path -Path $PROFILE )) { New-Item -Type File -Path $PROFILE -Force }
+```powershell
 notepad $PROFILE
-
 ```
 
-Adicionar no arquivo a linha abaixo:
+O Bloco de Notas será aberto com o arquivo de configuração do PowerShell.
 
+[⬆ Voltar ao Glossário](#-glossário)
+
+---
+
+## 6. Ativar o Oh My Posh
+
+Adicione ao `$PROFILE`:
+
+```powershell
+oh-my-posh init pwsh | Invoke-Expression
 ```
 
-oh-my-posh init pwsh --config 'C:\Users\Usuario\AppData\Local\Programs\oh-my-posh\themes\cloud-native-azure.omp.json' | Invoke-Expression
+Salve o arquivo.
 
+Recarregue o perfil:
+
+```powershell
+. $PROFILE
 ```
 
-> Verifica se a localização dos temas realmente estão no endereço neste exemplo, se estiver, só executar o comando acima.
+O Oh My Posh deverá aparecer no terminal.
 
-Executar o comando abaixo para listar todos os temas disponíveis ou você pode consultar no site: https://ohmyposh.dev/docs/themes
+[⬆ Voltar ao Glossário](#-glossário)
 
+---
+
+## 7. Visualizar os temas disponíveis
+
+Execute:
+
+```powershell
+oh-my-posh get themes
 ```
 
-Get-PoshThemes
+Escolha o tema desejado.
 
+[⬆ Voltar ao Glossário](#-glossário)
+
+---
+
+## 8. Configurar um tema
+
+Abra novamente o perfil:
+
+```powershell
+notepad $PROFILE
 ```
 
+Configure o tema desejado:
 
+```powershell
+oh-my-posh init pwsh --config "NOME_DO_TEMA" | Invoke-Expression
+```
+
+Exemplo:
+
+```powershell
+oh-my-posh init pwsh --config "cloud-native-azure" | Invoke-Expression
+```
+
+Salve o arquivo e recarregue:
+
+```powershell
+. $PROFILE
+```
+
+[⬆ Voltar ao Glossário](#-glossário)
+
+---
+
+## 9. Atualizar o Oh My Posh
+
+Execute:
+
+```powershell
+winget upgrade JanDeDobbeleer.OhMyPosh --source winget
+```
+
+Depois da atualização, feche e abra novamente o Windows Terminal.
+
+[⬆ Voltar ao Glossário](#-glossário)
+
+---
+
+## 10. Problemas com execução do perfil
+
+Verifique a política atual:
+
+```powershell
+Get-ExecutionPolicy
+```
+
+Se a execução de scripts estiver bloqueada:
+
+```powershell
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+Confirme a alteração quando solicitado.
+
+Recarregue o perfil:
+
+```powershell
+. $PROFILE
+```
+
+[⬆ Voltar ao Glossário](#-glossário)
+
+---
+
+## 11. Comandos úteis
+
+| Ação              | Comando                                                  |
+| ----------------- | -------------------------------------------------------- |
+| Ver versão        | `oh-my-posh version`                                     |
+| Listar fontes     | `oh-my-posh font list`                                   |
+| Listar temas      | `oh-my-posh get themes`                                  |
+| Abrir perfil      | `notepad $PROFILE`                                       |
+| Recarregar perfil | `. $PROFILE`                                             |
+| Atualizar         | `winget upgrade JanDeDobbeleer.OhMyPosh --source winget` |
+
+[⬆ Voltar ao Glossário](#-glossário)
+
+---
+
+## 12. Documentação
+
+* [Oh My Posh](https://ohmyposh.dev/)
+* [Instalação no Windows](https://ohmyposh.dev/docs/installation/windows)
+* [Nerd Fonts](https://ohmyposh.dev/docs/installation/fonts)
+* [Temas](https://ohmyposh.dev/docs/themes)
+
+[⬆ Voltar ao Glossário](#-glossário)
+
+---
+
+## ✅ Configuração concluída
+
+Após concluir as etapas, o Windows Terminal estará configurado com:
+
+* **Oh My Posh** instalado;
+* **Nerd Font** configurada;
+* ícones compatíveis;
+* tema personalizado;
+* inicialização automática pelo PowerShell;
+* atualização pelo Winget.
+
+> **Dica:** use o [Glossário](#-glossário) no início deste README para navegar rapidamente entre as etapas.
