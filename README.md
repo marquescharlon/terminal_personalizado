@@ -1,5 +1,8 @@
 # 🖥️ Terminal Personalizado no Windows
 
+<img width="1113" height="297" alt="image" src="https://github.com/user-attachments/assets/3dda974d-fd96-49c8-84b5-10476b186318" />
+
+
 Guia rápido para instalar e configurar um terminal personalizado no Windows utilizando **Windows Terminal + PowerShell + Oh My Posh + Nerd Font**.
 
 O objetivo deste guia é permitir que toda a configuração seja realizada de forma simples, seguindo as etapas na ordem apresentada.
@@ -204,12 +207,14 @@ Substitua pela configuração contendo o tema desejado:
 
 ```powershell
 oh-my-posh init pwsh --config "NOME_DO_TEMA" | Invoke-Expression
+Clear-Host
 ```
 
 Por exemplo:
 
 ```powershell
-oh-my-posh init pwsh --config "cloud-native-azure" | Invoke-Expression
+oh-my-posh init pwsh --config "spaceship" | Invoke-Expression
+Clear-Host
 ```
 
 Salve o arquivo.
